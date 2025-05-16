@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use Modules\ClientManagement\Models\MainCompany;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard', ['companies' => MainCompany::all()]);
     })->name('dashboard');
 });

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('maincomp', function (Blueprint $table) {
             $table->id();
-            $table->string('client_id');
+            $table->string('clientid');
             $table->string('client_name');
             $table->foreignId('status')->constrained('refstat')->onDelete('restrict');
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
             $table->enum('client_type', ['individual', 'company']);
             $table->timestamps();
-            $table->integer('updated_by');
+            $table->integer('updated_by')->nullable();
             $table->softDeletes();
         });
     }

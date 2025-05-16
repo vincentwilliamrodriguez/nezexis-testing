@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->timestamps();
-            $table->integer('updated_by');
+            $table->integer('updated_by')->nullable();
             $table->softDeletes();
         });
     }
