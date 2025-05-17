@@ -1,32 +1,69 @@
 <div>
-    {{-- <flux:dropdown>
-        <flux:button>Awaw</flux:button>
-        <flux:menu>
-            <flux:menu.item icon="plus">New post</flux:menu.item>
-            <flux:menu.radio.group>
-
-                @foreach (\Modules\ClientManagement\Models\Status::all() as $statusRef)
-                    <flux:menu.radio> awaw </flux:menu.radio>
-                @endforeach
-            </flux:menu.radio.group>
-        </flux:menu>
-    </flux:dropdown> --}}
-
     <x-mary-select
         class="!outline-none"
         label='Main Company Status'
-        wire:model='status'
-        :options='$options'
-        icon="o-user"
+        wire:model.live.debounce.250ms='status'
+        :options='$selectOptions'
+    />
+
+    <x-mary-select
+        class="!outline-none"
+        label='Country'
+        wire:model.live.debounce.250ms='location.country'
+        :options='$locationOptions["country"]'
+        :disabled='empty($locationOptions["country"])'
+        placeholder='Select Country'
+    />
+
+    <x-mary-select
+        class="!outline-none"
+        label='Region'
+        wire:model.live.debounce.250ms='location.region'
+        :options='$locationOptions["region"]'
+        :disabled='empty($locationOptions["region"])'
+        placeholder='Select Region'
+    />
+
+    <x-mary-select
+        class="!outline-none"
+        label='Province'
+        wire:model.live.debounce.250ms='location.province'
+        :options='$locationOptions["province"]'
+        :disabled='empty($locationOptions["province"])'
+        placeholder='Select Province'
+    />
+
+    <x-mary-select
+        class="!outline-none"
+        label='City/Municipality'
+        wire:model.live.debounce.250ms='location.city'
+        :options='$locationOptions["city"]'
+        :disabled='empty($locationOptions["city"])'
+        placeholder='Select City/Municipality'
+    />
+
+    <x-mary-select
+        class="!outline-none"
+        label='Barangay'
+        wire:model.live.debounce.250ms='location.barangay'
+        :options='$locationOptions["barangay"]'
+        :disabled='empty($locationOptions["barangay"])'
+        placeholder='Select Barangay'
+    />
+
+    <x-mary-input
+        label='Street Address'
+        wire:model.live.debounce.250ms='location.street_add'
+        placeholder='123 Gumamela St.'
+        clearable
+    />
+
+    <x-mary-input
+        label='Zip Code'
+        wire:model.live.debounce.250ms='location.zipcode'
+        placeholder='1234'
+        clearable
     />
 
     <x-mary-button label='Save' wire:click='save' />
-
-    <p>Main Company: {{ $sampleComp->statusName }}</p>
-
-    <div class="flex flex-col">
-        @foreach ($sampleComp->branches as $sampleBranch)
-            <p>{{$sampleBranch->branch_name}}: {{ $sampleBranch->statusName }}</p>
-        @endforeach
-    </div>
 </div>
