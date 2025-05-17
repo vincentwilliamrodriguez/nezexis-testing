@@ -43,6 +43,19 @@ class MainCompany extends Model
         });
     }
 
+    public static function booted() {
+        static::updated(function ($model) {
+            if ($model->isDirty('status')
+                && in_array($model->statusName, ['closed', 'dropped']))
+            {
+                foreach ($model->branches as $branch) {
+                    $branch->status = $model->status;
+                    $branch->save();
+                }
+            }
+        });
+    }
+
     protected static function newFactory(): MainCompanyFactory
     {
         return MainCompanyFactory::new();
